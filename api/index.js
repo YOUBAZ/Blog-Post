@@ -13,8 +13,6 @@ mongoose
 const app = express();
 const port = 3000;
 app.use(express.json());
-app.use("/api/user", userRoutes);
-app.use("/api/auth", authRoutes);
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "internal Server Error";
@@ -27,3 +25,6 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`Server is Running on Port ${port}`);
 });
+
+app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
