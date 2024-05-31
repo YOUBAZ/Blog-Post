@@ -38,7 +38,11 @@ const SignIn = () => {
         navigate("/");
       }
     } catch (error) {
-      dispatch(signInFailure(error.message));
+      if (error.response && error.response.status === 404) {
+        dispatch(signInFailure("Invalid user email"))
+      } else {
+        dispatch(signInFailure(error.message));
+      }
     }
   };
   return (
