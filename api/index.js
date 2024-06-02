@@ -3,15 +3,18 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoute.js";
 import authRoutes from "./routes/authRoute.js";
+import cookieParser from "cookie-parser";
+
 dotenv.config();
 mongoose
-.connect(process.env.MONGODB_URL)
-.then(() => console.log("MongoDB Connected Successfully"))
-.catch((err) => {
-  console.log(err);
-});
+  .connect(process.env.MONGODB_URL)
+  .then(() => console.log("MongoDB Connected Successfully"))
+  .catch((err) => {
+    console.log(err);
+  });
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 const port = 3000;
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -25,6 +28,7 @@ app.use((err, req, res, next) => {
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+
 app.listen(port, () => {
   console.log(`Server is Running on Port ${port}`);
 });
