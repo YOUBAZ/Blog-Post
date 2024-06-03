@@ -5,6 +5,7 @@ import userRoutes from "./routes/userRoute.js";
 import authRoutes from "./routes/authRoute.js";
 import cookieParser from "cookie-parser";
 
+const port = 3000;
 dotenv.config();
 mongoose
   .connect(process.env.MONGODB_URL)
@@ -15,7 +16,13 @@ mongoose
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-const port = 3000;
+app.listen(port, () => {
+  console.log(`Server is Running on Port ${port}`);
+});
+
+app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "internal Server Error";
@@ -24,11 +31,4 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
-});
-
-app.use("/api/user", userRoutes);
-app.use("/api/auth", authRoutes);
-
-app.listen(port, () => {
-  console.log(`Server is Running on Port ${port}`);
 });
