@@ -62,7 +62,6 @@ export const deleteUser = async (req, res, next) => {
     next(error);
   }
 };
-
 export const signout = (req, res, next) => {
   try {
     res
