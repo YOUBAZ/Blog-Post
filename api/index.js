@@ -8,8 +8,6 @@ import commentRoutes from "./routes/commentRoute.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import cors from "cors";
-
-const port = 3000;
 dotenv.config();
 const corsOptions = {
   origin: "http://localhost:5173", // Allow only requests from this origin
@@ -29,8 +27,8 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
-app.listen(port, () => {
-  console.log(`Server is Running on Port ${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is Running on Port ${process.env.PORT}`);
 });
 
 app.use("/api/user", userRoutes);
