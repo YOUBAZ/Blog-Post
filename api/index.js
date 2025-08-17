@@ -13,20 +13,20 @@ const port = 3000;
 dotenv.config();
 const corsOptions = {
   origin: "http://localhost:5173", // Allow only requests from this origin
-  methods: "GET,POST", // Allow only these methods
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allow only these methods
   allowedHeaders: ["Content-Type", "Authorization"], // Allow only these headers
 };
 
 // Use CORS middleware with specified options
-app.use(cors(corsOptions));
 mongoose
-  .connect(process.env.MONGODB_URL)
-  .then(() => console.log("MongoDB Connected Successfully"))
-  .catch((err) => {
-    console.log(err);
-  });
+.connect(process.env.MONGODB_URL)
+.then(() => console.log("MongoDB Connected Successfully"))
+.catch((err) => {
+  console.log(err);
+});
 const __dirname = path.resolve();
 const app = express();
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.listen(port, () => {
